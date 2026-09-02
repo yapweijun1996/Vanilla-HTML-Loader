@@ -901,3 +901,14 @@
   0%, 100% { transform: scale(.88); opacity: .7; }
   50% { transform: scale(1.08); opacity: 1; }
 }
+
+/* Operations V2 keeps selection on the card shell so the status-first preview stays unobstructed. */
+.loader-card[data-category="Operations"].is-selected::after {
+  display: none;
+}
+
+@media (max-width: 359px) {
+  .loader-card[data-operations-v2="true"] .preview-stage {
+    transform: scale(.66);
+  }
+}

@@ -1,4 +1,6 @@
-export const operationLoaders = [
+import { operationsV2Overrides } from './operations-v2-overrides.js';
+
+const baseOperationLoaders = [
   {
     id: 'file-upload-queue',
     name: 'File Upload Queue',
@@ -2683,3 +2685,7 @@ AppLoader.setLatency = function (value) {
   },
 
 ];
+
+export const operationLoaders = baseOperationLoaders.map(loader =>
+  operationsV2Overrides[loader.id] ? { ...loader, ...operationsV2Overrides[loader.id] } : loader
+);

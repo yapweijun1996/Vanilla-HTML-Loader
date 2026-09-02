@@ -144,11 +144,21 @@ function createActionButton(label, className, dataName, loaderId) {
   return button;
 }
 
+const OPERATIONS_V2_CARD_IDS = new Set([
+  'file-upload-queue',
+  'file-download-manager',
+  'ocr-idp-pipeline',
+  'pdf-export-pipeline',
+  'media-transcoding-pipeline',
+  'cross-system-data-sync'
+]);
+
 function stableLoaderVariant(loader) {
   return [...loader.id].reduce((total, character) => total + character.charCodeAt(0), 0);
 }
 
 function getCardSize(loader) {
+  if (OPERATIONS_V2_CARD_IDS.has(loader.id)) return 'lg';
   const variant = stableLoaderVariant(loader);
 
   if (loader.category === 'Skeletons') return variant % 2 === 0 ? 'xl' : 'lg';
@@ -172,6 +182,8 @@ function createLoaderCard(loader, state, index, totalCount) {
   const article = document.createElement('article');
   article.className = `loader-card ${isSelected ? 'is-selected' : ''}`.trim();
   article.dataset.loaderId = loader.id;
+  article.dataset.category = loader.category;
+  article.dataset.operationsV2 = String(OPERATIONS_V2_CARD_IDS.has(loader.id));
   article.dataset.collectionIndex = String(index);
   article.dataset.cardSize = getCardSize(loader);
   if (isSelected) article.setAttribute('aria-current', 'true');

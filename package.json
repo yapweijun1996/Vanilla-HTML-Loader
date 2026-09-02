@@ -14,7 +14,8 @@
     "test:snippets:matrix": "node qa/verify-matrix-loaders.mjs && node qa/run-smoke-ci.mjs --category Matrix --limit 269",
     "test:dist": "node qa/run-smoke-ci.mjs --root dist",
     "test:dist:matrix": "node qa/run-smoke-ci.mjs --root dist --category Matrix --limit 269",
-    "check": "npm run lint:registry && npm run test:snippets"
+    "check": "npm run lint:registry && npm run test:operations-v2 && npm run test:snippets",
+    "test:operations-v2": "node qa/verify-operations-v2.mjs"
   },
   "devDependencies": {
     "vite": "^7.1.5"
